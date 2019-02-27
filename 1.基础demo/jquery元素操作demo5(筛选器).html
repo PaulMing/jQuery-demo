@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .list{
+            list-style: none;
+
+        }
+        .list li{
+            display: inline-block;
+            width: 30%;
+        } 
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li>华为</li>
+        <li>小米</li>
+        <li>oppo</li>
+        <li>vivo</li>
+        <li>锤子</li>
+        <li>Apple</li>
+        <li>Sony</li>
+        <li>Nokia</li>
+        <li>黑莓</li>
+        <li>其他品牌</li>
+    </ul>
+    <br><br>
+    <button id="showorhide">显示所有品牌</button>
+    <!-- 按钮切换：开始显示部分-> 全局显示 -->
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // $(".list li:gt(5)").hide();
+        // $(".list li:last").show();
+        $(".list li:gt(5):not(:last)").hide();
+        var isShow = true;
+        $("#showorhide").click(function(){
+            if(isShow){
+                $(".list li:hidden").show();
+                $(this).html("精选品牌...");
+                isShow = false;
+            }else{
+                $(".list li:gt(5):not(:last)").hide();
+                $(this).html("显示所有品牌");
+                isShow = true;
+            }
+        })
+    </script>
+</body>
+</html>

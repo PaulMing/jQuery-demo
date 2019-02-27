@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img{
+            width: 200px;
+            position: fixed;
+            cursor: pointer;
+        }
+        .s2{
+            margin-top: 300px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <img class="s1"src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541254981710&di=ec1cb5ac5320424866388414e000c8a0&imgtype=0&src=http%3A%2F%2Fpic25.photophoto.cn%2F20121221%2F0005018616515359_b.jpg">
+    <img class="s2"src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541254981710&di=ec1cb5ac5320424866388414e000c8a0&imgtype=0&src=http%3A%2F%2Fpic25.photophoto.cn%2F20121221%2F0005018616515359_b.jpg">
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $(".s1").click(function(){
+            $(this).animate({
+                width: "300px",
+                opacity: "0"
+            },3000,"linear",function(){
+                $(this).remove();
+            })
+        })
+        $(".s2").click(function(){
+            $(this).animate({
+                left: 600,
+                top: 400
+            },3000,"linear",function(){
+                // $(this).remove();
+            })
+        }) 
+    </script>
+</body>
+</html>

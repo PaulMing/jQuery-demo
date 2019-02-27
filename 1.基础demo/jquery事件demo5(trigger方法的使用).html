@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 使用原生js触发特定事件 -->
+    <button class="step">1.连接到数据库</button>
+    <button class="step">2.修改数据</button>
+    <button class="step">3.断开数据库</button>
+    <hr>
+    <button class="btAll">连接 - 修改 - 断开</button>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $("button:contains('连接')").on("click",function(){
+            console.log("正在连接数据库...");
+        });
+        $("button:contains('修改')").on("click",function(){
+            console.log("正在修改数据...");
+        });
+        $("button:contains('断开')").on("click",function(){
+            console.log("断开数据连接...");
+        });
+
+        // 点击按钮：模拟三个按钮被连续点击的效果
+        // 方式1：
+        // 方式2：
+        //trigger();//触发器(手枪扳机的意思)//参数为事件名，自动触发，不需要用户来点击
+       /*  $(".btAll").click(function(){
+            $(".step").trigger("click");
+        }) */
+        // 方式3：
+        $(".btAll").click(function(){
+            $(".step").click();
+        })
+
+
+
+        // 小结：
+        // 使用js触发特定的事件 
+        $(".btn").trigger();
+        $(".btn").click();
+        // 应用场景：例如页面中要利用button实现跳转功能，不使用a标签，可以利用以上方法来点击button来自动触发a标签即可达到效果，如果不想看到a标签，可以设置<a href="" style="display:none"></a>
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

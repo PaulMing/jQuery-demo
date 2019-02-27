@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 属性选择器demo -->
+    <a href="#">空锚点</a>
+    <a href="#c">#c</a>
+    <a href="www.baidu.com">百度</a>
+    <a href="#cc">#cc</a>
+    <a href="skr">skr</a>
+    <a href="dkdkdk" title="jqueryAPI">jqueryAPI</a>
+    <hr>
+    <button>01</button>
+    <button>02</button>
+    <button>03</button>
+    <button>04</button>
+    <button>05</button>
+    <button>06</button>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $($("button")[0]).click(function(){
+            $("a[title]").css("background","red")
+        });
+        $($("button")[1]).click(function(){
+            $("a[href^=d]").css("background","green")
+        });
+        $($("button")[2]).click(function(){
+            $("a[href='www.baidu.com']").css("background","green")
+        });
+        $($("button")[3]).click(function(){
+            $("a[href='skr']").css("font-size","18px")
+        });
+        
+        $($("button")[4]).click(function(){
+            $("a[href*='#']").css("background","pink");
+        })
+        $($("button")[5]).click(function(){
+            console.log(11);
+           $('a[href="#"]').css("background","yellow");
+        })  
+    </script>
+</body>
+</html>

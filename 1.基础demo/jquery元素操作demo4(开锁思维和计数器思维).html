@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="dropDown">
+        <a href="">NBA球星</a>
+        <ul class="menu">
+            <li>詹姆斯</li>
+            <li>哈登</li>
+            <li>保罗</li>
+        </ul>
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // 例：点击a标签展示内容，再次点击，收起
+        $("a").css({
+            "border": "1px solid #ccc ",
+            "text-decoration": "none",
+            "padding": "8px 10px",
+            "font-size": "12px"
+        })
+        $(".dropDown ul").css({
+            "list-style": 'none',
+            "border": "1px solid #ccc ",
+            "padding-left": "0px",
+            "margin-top": "8px",
+            "font-size": "12px",
+            "width": "70px",
+            "display": "none"
+        })
+        // 计数器解决：
+        /* var count = 0;
+        $("a").click(function(e){
+            count++;
+            e.preventDefault();
+            if(count%2 == 1){
+                $("a+.menu").css("display","block")
+
+            }else{
+                $("a+.menu").css("display","none")
+            }
+          
+        }) */
+        // 开关(锁)的编程思维
+        var isShow = true;
+        $("a").click(function(e){
+            e.preventDefault();
+            if(isShow){
+                $("a+.menu").css("display","block");
+                isShow = false;
+            }else{
+                $("a+.menu").css("display","none")
+                isShow = true;
+            }
+
+        })
+    </script>
+</body>
+</html>

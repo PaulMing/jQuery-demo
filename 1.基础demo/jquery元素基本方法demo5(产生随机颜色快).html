@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            min-height: 400px;
+            padding: 10px;
+        }
+        .content{
+            width: 100px;
+            height: 100px;
+            position: relative;
+            display: inline-block;
+            margin: 6px;
+        }
+        .content span{
+            padding: 2px;
+            position: absolute;
+            right: 5px;
+            top: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button>添加随机颜色快</button>
+    <div class="container">
+        <!-- <div class="content">
+            <span>&times;</span>
+        </div> -->
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // 随机颜色函数(封装)
+        function rc(){
+            var r = Math.floor(Math.random()*256);
+            var g = Math.floor(Math.random()*256);
+            var b = Math.floor(Math.random()*256)
+            return "rgb("+r+","+g+","+b+")"
+        }
+        $("button").click(function(){
+            var span = $('<span>&times<span>');
+            span.click(function(){
+                $(this).parent().remove();
+            })
+            var div = $('<div class="content"></div>')
+            div.append(span);
+            div.css("background",rc());
+            $(".container").append(div);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            border: 1px solid #aaa;
+            min-height: 300px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- on的两种用法 -->
+    <button class="btn">添加新按钮</button>
+    <div class="container">
+
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $('.btn').on('click',function(){
+            var num = $(".container>button").length;
+            $("<button>"+num+"</button>").appendTo($(".container"));
+        })
+        $(".container").on('click','button',function(){
+            console.log($(this).html());
+        })  
+    </script>
+</body>
+</html>

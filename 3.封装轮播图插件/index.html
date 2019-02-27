@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+         * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .swiper {
+            width: 500px;
+            height: 300px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .content {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #000;
+            overflow: hidden;
+            position: absolute;
+            bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="swiper"></div>
+    </div>
+    <script src="jquery-3.3.1.js"></script>
+    <script src="./index.js"></script>
+    <!-- 插件是依附页面中某个元素的 方便用户使用 -->
+    <script>
+        $(".wrapper .swiper").swiper({
+            images:["./images/1.jpg","./images/2.jpg","./images/3.jpg","./images/4.jpg","./images/5.jpg"],
+            width: 500,
+            height: 300,
+            direction: "next",
+            autoTimer: 3000,
+        })  
+    
+    /*
+     总结：
+        封装插件的过程中，若是使用变量较多，项目较复杂，一般都采取“面向对象编程” ->即构造函数，原型链上编程的思想 ->封装轮播图、input框插件便采取此种方法；
+        除此之外，还可以直接使用函数间参数传值的方法来操作 ->适用于项目复杂度小 ->封装分页插件
+    */
+    </script>  
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="demo">dfadf</div>
+    <ul>
+        <!-- <div>kk</div> -->
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <br><br><br>
+    <ul>
+        <!-- <div>cc</div> -->
+        <li>21</li>
+        <li>22</li>
+        <li>23</li>
+        <li>24</li>
+    </ul>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // 基本筛选器和子元素筛选器的区别：
+        // 补充：$("ul li:first")等，若有多个ul>li集合，其只能选中首个ul下的li，其它的不能选中;【特殊现象：first/last 若有多个ul>li集合，其会进行合并当作是一个ul>li来处理】【$("ul li:nth-child(2)"):多个ul>li集合，都能选中】
+        // $("ul li:first-child")系列等，根据子元素选择，若有多个ul>li，其都可以选中，但li必须作为ul下的首个元素，否则不能选中；<ul><div></div><li></li></ul>
+        $("ul li:first").css("background","#f40");
+        $("ul li:last").css("background","#f40");
+        $("ul li:nth-child(2)").css("background","blue");
+
+        $('ul li:first-child').css("background","pink");
+        $('ul li:first-of-type').css("background","blue");
+    </script>
+</body>
+</html>

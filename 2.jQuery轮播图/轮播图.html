@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none; 
+        }
+        .wrapper{
+            position: relative;
+            width: 600px;
+            height: 300px;
+            border: 5px solid rgb(94, 91, 91);
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        /* ul需要设置宽高底层原因：
+           若父元素设置宽高，子元素未设置宽高，其宽默认为100%(等于父元素宽)，高随子元素变化
+           若父元素设置宽高，子元素设置宽高，超出溢出
+           若父元素未设置宽高，子元素设置宽高，其会撑开父元素 
+         */
+        .wrapper ul{
+            width: 3600px;
+            height: 300px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        .wrapper ul li{
+            display: inline-block;
+        }
+        .wrapper ul li img{
+            width: 600px;
+            height: 300px;
+        }
+        .wrapper .btn{
+            width: 40px;
+            height: 50px;
+            background-color: #000;
+            font-size: 22px;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            opacity: 0.7;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            display: none; 
+        }
+        .wrapper .leftBtn{
+            left: 0px;
+        }
+        .wrapper .rightBtn{
+            right: 0px;
+        }
+        .wrapper .pointer{
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+        }
+        .wrapper .pointer span{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            margin-left: 5px; 
+            cursor: pointer;
+        }
+        /* .wrapper:hover .btn{
+            display: block;
+        } */
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <ul>
+            <li><img src="./images/1.jpg" alt=""></li><li><img src="./images/2.jpg" alt=""></li><li><img src="./images/3.jpg" alt=""></li><li><img src="./images/4.jpg" alt=""></li><li><img src="./images/5.jpg" alt=""></li><li><img src="./images/1.jpg" alt=""></li>
+        </ul>
+        <div class="btn leftBtn">&lt;</div>
+        <div class="btn rightBtn">&gt;</div>
+        <div class="pointer">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div> 
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        var imgWidth = $('.wrapper ul li').width();
+        var nowIndex = 0;
+        var imgNum = $('.wrapper ul li').length -1;
+        var lock = false;
+        var timer = null;
+        // 初始化入口函数
+        function init(){
+            bindEvent();
+            autoMove();
+            changeIndex();
+        }
+        init();
+        function bindEvent(){
+            // 左右按钮显示事件
+            $('.wrapper').hover(function(){
+                $('.btn').fadeIn();
+                clearInterval(timer);
+            },function(){
+                $('.btn').fadeOut();
+                autoMove();
+            });
+            // 事件委托
+            $('.wrapper').on('click','.btn',function(e){
+                if($(this).hasClass('leftBtn')){
+                    move('prev');
+                }else if ($(this).hasClass('rightBtn')){
+                    move('next');
+                }
+            })
+            // 小原点事件
+            $('.wrapper .pointer').on('click','span',function(){
+                move($(this).index());
+            })
+        }
+        function move(dir){
+            if(lock){
+                return false;
+            }
+            lock = true;
+            if(dir == 'prev'){
+                if(nowIndex == 0){
+                    nowIndex = imgNum;
+                    $('.wrapper ul').css('left', -nowIndex * imgWidth);
+                }
+                nowIndex--;
+                $('.wrapper ul').animate({
+                    'left': -nowIndex * imgWidth
+                },1000,function(){
+                    changeIndex();
+                    lock = false;
+                })
+            }else if(dir == 'next'){
+                if(nowIndex == imgNum){
+                    nowIndex = 0;
+                    $('.wrapper ul').css('left', -nowIndex * imgWidth);
+                }
+                nowIndex++;
+                $('.wrapper ul').animate({
+                    'left': -nowIndex * imgWidth
+                },1000,function(){
+                    changeIndex();
+                    lock = false;
+                })
+
+            }else if(typeof dir == 'number'){
+                nowIndex = dir;
+                $('.wrapper ul').animate({
+                    'left': -nowIndex * imgWidth
+                },1000,function(){
+                    changeIndex();
+                    lock = false;
+                })
+            }
+        }
+        function changeIndex(){
+            // 图片5张，小圆点索引0~4
+            $(".wrapper .pointer span").css("background", "#fff");
+            if (nowIndex == imgNum) {
+                $(".wrapper .pointer span").eq(0).css("background", "red")
+            } else {
+                $(".wrapper .pointer span").eq(nowIndex).css("background", "red")
+            }
+        }
+        // 自动轮播
+        function autoMove(){
+            timer = setInterval(function(){
+                move('next');
+            },2000)
+        }
+        /*
+        总结：
+          1.底层逻辑：多放一张图片、整个ul移动(定位)
+          2.结构 + 样式(实现过程中使用小技巧) + 行为处理
+          3.行为处理: 初始化入口函数->bindEvent();autoMove();changeIndex();->bindEvent();首先是“鼠标移入左右按钮显示”，然后是“左右按钮点击”图片切换以及底部按钮切换，封装move();changeIndex();再然后是“底部按钮点击切换到相应图片”事件 ->自动轮播事件：默认是自动轮播，鼠标移入wrapper区停止(清除定时器即可)，鼠标移出再次执行autoMove(); ->其它就是做些优化，例如使用闭包的写法，“淡入淡出”效果等
+        */
+    </script>
+</body>
+</html>

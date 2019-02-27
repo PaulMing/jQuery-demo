@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 求成绩的平均分 -->
+    <!-- 使用jQuery对象 -->
+    <ul class="list">
+        <li>55</li>
+        <li>75</li>
+        <li>99</li>
+        <li>83</li>
+        <li>32</li>
+    </ul>
+    <p>上述成绩的平均分为：<span></span></p>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // var sum = 0;
+        // for(var i=0; i<$(".list li").length; i++){
+        //     var num = $($(".list li").get(i)).html();
+        //     num = parseFloat(num);
+        //     sum += num; 
+        //     console.log(sum);    
+        // }
+        // $("p span").html(sum/$(".list li").length)
+
+        // 补充：$().html();返回值为字符串，-->> 转换为数字
+        // 补充：console.log($('li') === $('li'));//false; 每次获取到$(".list li")返回的都是新对象，耗费性能，优化：var jqObj = $(".list li")
+        /* var sum = 0;
+        var jqObj = $(".list li")
+        for(var i=0; i<jqObj.length; i++){
+            var li = jqObj.get(i);
+            var score = parseFloat($(li).html());
+            sum += score;
+            if(score<60){
+                $(li).css("background","red");
+            }else if(score>80){
+                $(li).css("background","#0a0");
+            }else{
+                $(li).css("background","#aa0")
+            }
+        }
+        $("p span").html(sum/$(".list li").length) */
+
+
+        // each();//底层封装的便是for循环
+        var sum = 0;
+        $(".list li").each(function(index,ele){
+            var score = parseFloat($(ele).html());
+            sum += score 
+        })
+        $("p span").html(sum/$(".list li").length)
+    </script>
+</body>
+</html>

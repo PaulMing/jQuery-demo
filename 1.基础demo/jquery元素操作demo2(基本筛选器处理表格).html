@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       table{
+           width: 100%;  
+       }
+       tr,td,th {
+           border:1px solid #ccc;
+       }
+    </style>
+</head>
+<body>
+    <table width:"80%" border:"1">
+        <thead>
+            <tr>
+                <th>控卫</th>
+                <th>后卫</th>
+                <th>前锋</th>
+                <th>中锋</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br><br>
+    <table width:"80%" border:"1">
+            <thead>
+                <tr>
+                    <th>控卫</th>
+                    <th>后卫</th>
+                    <th>前锋</th>
+                    <th>中锋</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table> 
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // 巧妙应用基本筛选器和子元素筛选器(excel表格底层封装的也是事件处理函数)
+        $("thead>tr").css("background","#666").css("color","#fff");
+        // 子元素筛选器 2n偶数，even也可以，
+        $("tbody tr:nth-child(2n)").css("background","#e2e2e2");
+        $("tbody tr td:first-child").css("background","#a0a0a0");
+  
+    </script>
+</body>
+</html>

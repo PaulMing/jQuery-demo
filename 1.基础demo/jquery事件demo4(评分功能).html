@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .score div{
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    
+    </style>
+</head>
+<body>
+    <!-- 实现评分功能 -->
+    <!-- 巧妙应用 $().index() -->
+    <div class="score">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $(".score").on("click","div",function(){
+            $(".score div").css("background","transparent");
+            var i = $(".score div").index(this);
+            // 小于当前元素的索引都填充颜色
+            $(".score div:lt("+(i+1)+")").css("background","#f00");
+        })
+    </script>
+</body>
+</html>

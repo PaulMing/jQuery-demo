@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+        .demo{
+            width: 400px;
+            height: 40px;
+            margin: 150px auto;
+            border: 1px solid grey;
+        }   
+    </style>
+</head>
+<body>
+    <div class="demo"></div>
+    <script src="jQuery3.3.1.js"></script>
+    <script src = "./input.js"></script>
+    <script>
+        // 处理数据->数据渲染
+        function dealData(data){
+            var dataList = data.result;
+            // 每次都把页面清空，$().html();//取值， html('');//清空
+            $('.demo>ul').html('');
+            // $('.demo>ul').remove();
+            var oUl = $('<ul class="itemList"></ul>');
+            for(var i=0; i<dataList.length; i++){
+                $('<li></li>').html(dataList[i][0]).appendTo(oUl);
+                oUl.appendTo($('.demo'));
+            }
+        }
+        $('.demo').inputSearch({
+            type: 'GET',
+            url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+            key: 'cb',
+            jsonpCallback: 'dealData',
+            inputWidth: 300,
+            height: 30,
+            fontSize: '24px',
+            success: dealData,
+            dataName: 'wd',
+        })
+    </script>
+</body>
+</html>

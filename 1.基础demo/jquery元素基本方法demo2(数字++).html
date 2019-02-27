@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--例：点击按钮，数字++  -->
+    <button>0</button>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $("button").click(function(){
+            // html();获取到的是字符串，转换为数字操作；
+            // 补充：h++； 其会隐式将字符串转换为数字，所以即使不使用parseInt();也不会出错，但若是+=等和字符串进行操作，便会出错，强烈建议若是转换为数字操作，最好使用parseInt();/parseFloat();
+            var h = parseInt($(this).html());
+            h++;
+            $(this).html(h);
+        })
+    </script>
+</body>
+</html>

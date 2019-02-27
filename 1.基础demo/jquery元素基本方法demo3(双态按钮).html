@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .btna{
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+        .btnb{
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <!-- 例：双态按钮：点击切换样式-->
+    <!-- addClass();/toggleClass(); -->
+    <button class="btna">暂停</button>
+    <button class="btna">播放</button>
+    <button class="btna">重启</button>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // toggleClass();底层封装的便是hasClass();/removeClass();/hasClass()
+        $("button").click(function(){
+            $(this).toggleClass("btnb");
+        })
+
+        //  方式二：
+        /*  $("button").click(function(){
+             if($(this).hasClass("btnb")){
+                 $(this).removeClass("btnb");
+             }else{
+                $(this).toggleClass("btnb");
+             }
+        }) */
+    </script>
+</body>
+</html>

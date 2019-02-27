@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>今日菜单</div>
+    <!-- select的size属性值为数字，表示几个option -->
+    <select name="" id="menu" size=5>
+        <option value="hj">火腿鸡蛋</option>
+        <option value="ys">鱼香鸡蛋</option>
+        <option value="lt">青椒鸡蛋</option>
+    </select>
+    <div>我的订单</div>
+    <select name="" id="my-order" size="3">
+
+    </select>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // 之前select元素没有click事件，只有dblclick事件
+        $("#menu").on("click","option",function(){
+            $(this).clone().appendTo($("#my-order"));
+        })
+    </script>
+</body>
+</html>

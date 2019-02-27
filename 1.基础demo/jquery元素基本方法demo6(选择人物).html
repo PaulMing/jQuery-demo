@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .baskStar{
+            width: 150px;
+            height: 120px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+        }
+        .baskStar img{
+            width: 100%;
+            height: 100%;
+        }
+        .list{
+            border: 1px solid #ccc;
+            min-height: 400px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .list img{
+            width: 200px;
+            height: 180px;
+
+        }  
+    </style>
+</head>
+<body>
+    <!-- 选择球星：应用场景大多为游戏 -->
+    <!-- 巧妙应用替换元素和克隆元素 -->
+    <div class="baskStar">
+        <!-- <img src="http://img3.imgtn.bdimg.com/it/u=1911640006,4282829115&fm=26&gp=0.jpg" alt=""> -->
+    </div>
+    <hr>
+    <div class="list">
+        <img src="http://img3.imgtn.bdimg.com/it/u=1911640006,4282829115&fm=26&gp=0.jpg" alt="">
+        <img src="http://img0.imgtn.bdimg.com/it/u=2284651254,3355765486&fm=26&gp=0.jpg" alt="">
+        <img src="http://img3.imgtn.bdimg.com/it/u=1046633318,3556986305&fm=26&gp=0.jpg" alt="">
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $(".list img").click(function(){
+            var copy = $(this).clone(false);//不写参数默认为false，表示浅层克隆(不克隆事件等)
+            $(".baskStar").empty().append(copy);
+        })
+
+        // 方式二：每次点击都把原元素插入,点击三次后图片都插完了，append();方法如果不是将新创建的元素插入，其便是剪切操作
+        // $(".list img").click(function(){
+        //     if($(".baskStar img").length == 0){
+        //         $(".baskStar").append(this);
+        //     }else{
+        //         var newImg = $(this).replaceAll(".baskStar img");
+        //         $(".baskStar").append(newImg);
+        //     }
+        // })
+    </script>
+</body>
+</html>

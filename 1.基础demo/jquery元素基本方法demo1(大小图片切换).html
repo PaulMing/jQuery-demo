@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .showTop{
+             margin: 20px 0 20px 50px;
+        }
+        .showTop>img{
+            width: 100px;
+            height: 90px;
+        }
+        .box{ 
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- 例：鼠标移入小图片，显示大图片 -->
+    <!-- 巧妙应用元素属性方法 -->
+    <div class="showTop">
+        <img src="http://img1.imgtn.bdimg.com/it/u=2342996421,4051349126&fm=26&gp=0.jpg" alt="fullimg1">
+        <img src="http://img1.imgtn.bdimg.com/it/u=507087387,754932010&fm=26&gp=0.jpg" alt="fullimg2">
+        <img src="http://img0.imgtn.bdimg.com/it/u=1804257765,1063691331&fm=26&gp=0.jpg" alt="fullimg3">
+    </div>
+    <hr>
+    <div class="box">
+        <img src="fullimg1" alt="">
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $(".showTop img").mouseover(function(){
+            var fullSrc = $(this).attr("src");
+            $(".box img").attr("src",fullSrc);
+        })
+
+        // 方式二：
+        // $(".showTop img").click(function(){
+        //     $(".box").html($(this).clone());        
+        // })
+    </script>
+</body>
+</html>

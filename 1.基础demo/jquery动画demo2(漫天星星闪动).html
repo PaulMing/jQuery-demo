@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 漫天星星  闪闪 -->
+    <!-- 巧妙应用淡入/淡出动画 重点：回调函数 -->
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // 产生随机数范围函数
+        function rn(min, max) {
+            // (max-ming) + min; -->> 最小值到最大值的范围
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        // 随机出现满屏“星星”
+        for (var i = 0; i < 30; i++) {
+            var star = $('<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541254981710&di=ec1cb5ac5320424866388414e000c8a0&imgtype=0&src=http%3A%2F%2Fpic25.photophoto.cn%2F20121221%2F0005018616515359_b.jpg">')
+            star.css("left", rn(0, $(document).width()) + "px").css("top", rn(0, $(document).height()) + "px").css("width", rn(50, 200) + "px");
+            // document  window  this 使用$不用加引号，其他都要加，dom元素不用加，但是head body html要加引号
+            $("body").append(star);
+        }
+        // 回调函数的巧妙使用 -->>> 制作闪的效果
+        /* $("img").click(function(){
+            $(this).fadeOut(1000,function(){
+                $(this).fadeIn(1000,function(){
+                    $(this).fadeOut(1000,function(){
+                        $(this).fadeIn(1000,function(){
+                            $(this).fadeOut(1000,function(){})
+                        });
+                    })
+                })
+            })
+        }) */
+        // 若是需要闪多次效率低下，代码书写复杂，-->>> 优化版
+        // jQuery中：所有动画作用于同一个元素上，其会排队执行
+        $("img").click(function(){
+            for(var i=0; i<4; i++){
+                $(this).fadeOut(1000).fadeIn(1000);
+            }
+        })
+    </script>
+</body>
+
+</html>

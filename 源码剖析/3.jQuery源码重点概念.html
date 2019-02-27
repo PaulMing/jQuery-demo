@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="jQuery2.0.3.js"></script>
+    <script>
+        // 1.$("");获取到的是对象，其继承自jQuery.prototype原型的原因：
+        // 普通面向对象形式：
+        function Student(){
+
+        }
+        Student.prototype.init = function(){}
+        Student.prototype.css = function(){};
+        var stu = new Student();
+        stu.init(); 
+        stu.css(); 
+
+        // jQuery采取的面向对象形式(解决之前面向对象繁琐的操作)
+        function jQuery(){
+            return new jQuery.prototype.init();
+        }
+        jQuery.prototype.init = function(){}
+        jQuery.prototype.css = function(){}
+        jQuery().init();//jquery()表示函数执行，返回对象，对象.init();
+        jQuery().css();//css()方法是从哪里继承来的呢?按道理来说，jquery.prototype.init是构造函数，new出来的对象，应该在其的原型上即jquery.prototype.init.prototype上，那为什么说是继承自jQuery.prototype上呢？
+        // 源码中有这样一句：jQuery.fn.init.prototype = jQuery.fn;
+
+
+        // 2.关于$("li") ->> 类数组对象的原因：
+        $("li").css("background","blue");
+        // $() --> new jQuery.prototype.init();//原生js中的构造函数创建对象的隐式三段论，获取到的对象存储在this对象中；
+        console.log($("li"));
+        // this = {
+        //     0: "li",
+        //     1: "li",
+        //     2: "li",
+        //     length: 3
+        // }
+        // 补充：ali是局部变量，为何for循环中就可以直接使用，这个变量实际是this对象上的；
+        var ali = document.getElementsByTagName("li");
+        for(var i=0; i<ali.length; i++){
+            ali[i].style.background = "blue";
+        }
+        console.log($("li"));
+        
+
+        // 3.关于重指向：
+        // jQuery中也进行了重指向：constructor:jQuery//重指向(重新指向jQuery构造函数)
+        // 举例剖析：
+        function Obj(){
+
+        }
+        Obj.prototype.age = 10;
+        var ol = new Obj();
+        console.log(ol.constructor);//function obj(){};// 其只是修改了原型上的age值而已，原型上依旧有constructor属性 
+        // 构造函数的原型若以字面量的形式添加 -> 其会覆盖之前的原型 -> 创建的对象obj.constructor也会被修改 -> 需要重指向
+        function ObjNew(){
+
+        }
+        ObjNew.prototype = {
+            age: 10
+        }
+        var olNew = new ObjNew();
+        console.log(olNew.constructor);//function Object() { [native code] }
+      
+
+        // 4.关于jQuery库中的方法：
+        // (1).jQuery自身上的方法
+        // (2).jQuery.prototype原型链上的方法
+        // (3).jQuery以及jQuery();扩展的方法
+        // (4).jQuery源码中有很多方法只是给内部使用的，外部很少使用或者不用，而且源码底层调用很多原生js中的方法(原生js中的一些方法执行速度更快，所以尽量使用原生js中的方法)  
+
+        // 补充1：jQuery中使用同一套源码对静态方法和实例方法进行扩展: jQuery.extend = jQuery.fn.extend = function(){};
+        // $.extend();//扩展静态方法   $().extend();//扩展实例方法
+        $.extend({
+            a:function(){
+                alert("a");
+            }
+        })
+        $.a();
+        $.fn.extend({
+            a:function(){
+                alert("a");
+            }
+        })
+        $().a();    
+        // 补充2：jQuery();参数为方法的三种写法：
+        $(function(){});//立即执行;此方法底层封装的也是ready();
+        $(document).ready(function(){});//ready(); 区别于window.onload();
+        $(document).on("ready",function(){});//同上等价
+
+
+
+        // 5.css样式的切换: $.swap(); 
+        // 原生js中若是dom元素设置了dispaly:none;便获取不到元素以及元素的一些属性，并且这种隐藏dom树上是不存在的，但是jQuery中可以获取到该元素的属性；底层原因：内部调用$.swap()方法，完成了css样式转换;(visibility:hidden;这种隐藏是存在于dom树上的)
+        // display:none --> 转换为display:block;visibility:hidden;position:absolute; 获取宽度后，再转换回去；
+        $(function(){
+            console.log($("#div1").css("width"));
+            console.log($("#div1").get(0).offsetWidth);
+        })
+
+
+        // 6.queue队列
+        $.queue();//入队(三个参数：队列存储位置(放到那里)、队列名、队列里存放的函数名)[可理解为数组]
+        $.dequeue();
+        $._queueHooks();//底层源码中内部使用该方法，出队以后将没用的属性方法删除掉;(其存储在缓存中，没用的时候从缓存中删除掉)
+        $(function(){
+            function aa(){
+                alert(1);
+            }
+            function bb(){
+                alert(2);
+            }
+            $.queue(document,"q1",aa);//写入
+            $.queue(document,"q1",[aa,bb]);//多个函数名，可以直接写数组 
+            console.log($.queue(document,"q1"));//获取队列中内容
+
+            // dequeue
+            $.queue(document,"q2",[aa,bb]);
+            $.dequeue(document,"q2");//获取内容，若是函数其会执行，每调用一次，执行队列里面的一个函数
+            $.dequeue(document,"q2");
+
+            // 实例方法：
+            $(document).queue("q1",aa);
+            $(document).queue("q1",bb);
+            console.log( $(document).queue("q1"));
+            console.log($(document).dequeue("q1"));
+        })
+
+
+
+        // 7.部分方法：
+        // jQuery.expando是随机字符串 + 随机数  -->>> 几乎是唯一标识，不可能重复  
+        this.expando = jQuery.expando + Math.random();
+
+        // 原型上的map();
+        var arr = [1,2,3];
+        arr = $.map(arr,function(elem,index){
+            return elem*index;
+        })
+        console.log(arr);
+
+        // noop();
+        function dg(){
+            this.default = {
+                fun: $.noop()
+            }
+        }
+        dg.prototype.init = function(opt){
+            $.extend(this.default.opt);
+        }
+
+        // $.each();
+        // 遍历数组、类数组，也可对JSON对象进行遍历
+        // 源码中有三个参数，外部使用过程中只需要两个参数
+
+        // $.inArray();
+        // 查找数组中的值，返回索引；//参数：值，数组，从第几项开始查找
+
+        //  $.access();
+        //  css();attr();一个参数时取值操作，两个参数赋值操作，底层调用的就是该方法
+        css("width");//取值
+        css("width","100px");//赋值
+        css("{width:100px;height:100px}");//多个属性赋值，灵活应用
+
+
+
+        // sizzle选择器主要涉及到了编译函数
+        // body html 怎么就能识别呢，词法分析，内部分析词源， 编译原理
+        $("body>div>mian")
+        // 从右向左遍历查找，，同时深度优先策略, 原生js中也是如此查找
+        /* 
+        css选择器的位置关系
+        css浏览器实现的基本接口
+        css选择器从右到左的扫描匹配 
+        id, class tagname 内部使用的，主要是兼容性
+        */
+        // 原生： id  class name TagName  querySelector  querySelectorAll
+    </script>
+</body>
+</html>

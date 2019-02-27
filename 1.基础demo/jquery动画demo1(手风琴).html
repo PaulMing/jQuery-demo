@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .accordion{
+            margin: 20px 20px;
+
+        }
+        .accordion h3{
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .accordion p {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- 手风琴效果 -->
+    <!-- 巧妙应用滑动效果 -->
+    <!-- Lorem 占位符，不用敲内容了，方便编程 -->
+    <div class="accordion">
+        <h3>HTML5</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident assumenda ducimus corrupti sunt quibusdam rerum reprehenderit perferendis obcaecati saepe ratione quas libero reiciendis nostrum magni, mollitia autem eos accusamus amet.</p>
+        <h3>CSS3</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed eligendi voluptatem possimus saepe harum provident vel perferendis officia unde placeat quis numquam, nobis non enim beatae vero dolores facilis ex!</p>
+        <h3>JavaScript</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore maiores doloremque magni alias earum ex, aliquid incidunt cupiditate praesentium atque quidem veniam optio sunt hic nulla harum saepe molestias illo.</p>
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $(".accordion h3").click(function(){
+            $(this).next().slideToggle(1000).siblings("p").slideUp(2000);
+            console.log($(this).next().siblings());
+            //jQuery中的链式调用  siblings();是以$(this).next()为参照物的
+        })
+        // 补充：jQuery中的链式调用底层  return this ; 但是涉及到节点的时候，以选中的节点为参照物，f返回上一级   end();
+    
+    </script>
+</body>
+</html>

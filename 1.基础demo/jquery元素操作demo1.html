@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        button{
+            padding: 10px 15px;
+        } 
+    </style>
+</head>
+<body>
+    <!-- jQuery $ 全局对象/全局变量 console.log(jQuery === $) -->
+    <!-- dom对象是浏览器将标签转换为对象来进行后续操作的 -->
+    <!-- jQuery获取到的是类数组对象，原生获取到的也是类数组对象，但这两个类数组对象不相同，所以$()的属性和方法，原生dom对象不能使用，同理原生dom对象的属性和方法，jQuery()也不能使用；(口语中常说jQuery是类数组，准确的说其获取到的对象是类数组，而jQuery是构造函数名，其是对象) -->
+
+    <!--jQuery对象和原生dom对象的相互转换 -->
+    <button id="btn1"></button>
+    <button class="btn">哈登</button>
+    <button class="btn">保罗</button>
+    <button class="btn">安东尼</button>
+
+    <ul id="menu">
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+    </ul>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        // jQuery -->> dom对象
+        var jqObj = $("button");
+        var domObj = jqObj[0];//方式1
+        var domObj = jqObj.get(0);//方式2
+        // dom对象 -->> jQuery对象
+        var domObj = document.getElementById("btn1");
+        var jqObj = $(domObj);
+
+        // 例：页面中创建三个按钮，点击某个按钮，修改其样式和上面的文字
+        $(".btn").click(function(){
+            // console.log(this);//this指向dom对象 --> jQuery对象 -> $(this)
+            $(this).css("background","pink").text("火箭队")
+        })
+
+        // 例：使用jQuery清除所有元素的padding和margin, ul#menu>li*3 点击某个li， 颜色变为#e4393c 并加粗显示
+        $("*").css({
+            "padding": 0,
+            "margin": 0,
+        })
+        $("ul#menu li").css("cursor","pointer")
+
+        $("ul").on("click","li",function(){
+            $(this).css({
+               'color': "#d4393c",
+               'fontWeight': "bold",
+            })
+        })
+    </script>
+</body>
+</html>

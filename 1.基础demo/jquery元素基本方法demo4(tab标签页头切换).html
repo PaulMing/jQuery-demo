@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        .tabs{
+            margin: 10px 50px;      
+        }
+        /* 尽量使用display:inline-block，不要使用浮动 */
+        .tabs li{
+            display: inline-block;
+            padding: 10px 15px;
+            border-bottom: 1px solid #ccc;   
+        }
+        .tabs li.active{
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+        }
+        .panes{
+            margin-left: 50px;
+        }
+        .panes div{
+            display: none;
+        }
+        .panes div.active1{
+            display: block;
+        }   
+    </style>
+</head>
+<body>
+    <!-- 例:实现tab标签页头切换 -->
+    <ul class="tabs">
+        <li class="active"><a href="#kw">控卫</a></li><li><a href="#hw">后卫</a></li><li><a href="#qf">前锋</a></li>
+    </ul>
+    <div class="panes">
+        <div class="active1" id="kw">保罗 库里 威少</div>
+        <div id="hw">哈登 德罗赞</div>
+        <div id="qf">詹姆斯 杜兰特</div>
+    </div>
+    <script src="jQuery3.3.1.js"></script>
+    <script>
+        $(".tabs li a").click(function(e){
+            e.preventDefault();
+            $(this).parent().addClass("active").siblings(".active").removeClass("active");
+            // 下面显示相应内容思路极其巧妙，以往解决方案都是每个li下嵌套div来操作显示
+            var h = $(this).attr("href");
+            $(h).addClass("active1").siblings(".active1").removeClass("active1");
+        }) 
+    </script>
+</body>
+</html>
